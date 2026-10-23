@@ -13,19 +13,31 @@ export class PrismaEscuderiaRepository implements IEscuderiaRepository {
     return { data, total };
   }
 
-  // ✅ Busca por ID exacto o por nombre (insensible a mayúsculas) para soportar URLs como /escuderias/mclaren
+  // ✅ Busca por ID exacto o por nombre normalizado (soporta "redbull", "mclaren", etc.)
   async findById(id: string): Promise<Escuderia | null> {
-    return prisma.escuderia.findFirst({
-      where: {
-        OR: [
-          { id: id },
-          { nombre: { contains: id, mode: 'insensitive' } }
-        ]
-      },
-      include: {
-        pilotos: true // Trae los pilotos de esta escudería
-      }
+    // 1. Primero intentar por ID exacto (UUID)
+    const byId = await prisma.escuderia.findUnique({
+      where: { id },
+      include: { pilotos: true }
     });
+    
+    if (byId) return byId;
+
+    // 2. Si no es UUID, buscar por nombre normalizado
+    const normalizedSearch = id.toLowerCase().replace(/[\s-]/g, '');
+    
+    const escuderias = await prisma.escuderia.findMany({
+      include: { pilotos: true }
+    });
+
+    // 3. Buscar coincidencia flexible
+    const found = escuderias.find(esc => {
+      const normalizedName = esc.nombre.toLowerCase().replace(/[\s-]/g, '');
+      return normalizedName.includes(normalizedSearch) || 
+             normalizedSearch.includes(normalizedName);
+    });
+
+    return found || null;
   }
 
   async create(data: Omit<Escuderia, 'id'>): Promise<Escuderia> {
