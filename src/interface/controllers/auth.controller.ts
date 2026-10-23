@@ -57,11 +57,11 @@ export const login = async (req: Request, res: Response) => {
       return res.status(401).json({ error: 'Credenciales inválidas' });
     }
 
-    // CORRECCIÓN: Se agrega 'as string' para satisfacer los tipos estrictos de jsonwebtoken
+    // ✅ FIX DEFINITIVO: 'as any' en el objeto de opciones para evitar el error de sobrecarga de TypeScript
     const token = jwt.sign(
       { id: user.id, role: user.role },
       process.env.JWT_SECRET!,
-      { expiresIn: (process.env.JWT_EXPIRES_IN || '7d') as string }
+      { expiresIn: process.env.JWT_EXPIRES_IN || '7d' } as any
     );
 
     res.json({
