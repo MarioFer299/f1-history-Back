@@ -18,6 +18,23 @@ export const getEscuderias = async (req: Request, res: Response) => {
   }
 };
 
+export const getEscuderiaById = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    
+    // ✅ Llamamos al método del repositorio, cumpliendo la arquitectura de 4 capas
+    const escuderia = await repository.findById(id);
+
+    if (!escuderia) {
+      return res.status(404).json({ error: 'Escudería no encontrada' });
+    }
+
+    res.json(escuderia);
+  } catch (error) {
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+};
+
 export const createEscuderia = async (req: AuthRequest, res: Response) => {
   try {
     const nuevaEscuderia = await repository.create(req.body);

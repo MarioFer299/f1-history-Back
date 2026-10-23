@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import escuderiaRoutes from './interface/routes/escuderia.routes';
 import authRoutes from './interface/routes/auth.routes';
+import pilotoRoutes from './interface/routes/piloto.routes';
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(cors({
 // Montaje de rutas
 app.use('/api/escuderias', escuderiaRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/pilotos', pilotoRoutes);
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
