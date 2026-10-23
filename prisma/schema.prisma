@@ -32,6 +32,28 @@ model Escuderia {
   color       String
   categoria   String
   imagenLogo  String?
+  historia    String?  @db.Text
+  pilotos     Piloto[]
+}
+
+model Piloto {
+  id              String   @id @default(uuid())
+  nombre          String
+  numero          Int
+  escuderiaId     String
+  escuderia       Escuderia @relation(fields: [escuderiaId], references: [id], onDelete: Cascade)
+  nacionalidad    String?
+  fechaNacimiento String?
+  lugarNacimiento String?
+  biografia       String?  @db.Text
+  carreras        Int      @default(0)
+  victorias       Int      @default(0)
+  podios          Int      @default(0)
+  poles           Int      @default(0)
+  vueltasRapidas  Int      @default(0)
+  puntos          Int      @default(0)
+  logros          String?  @db.Text
+  imagenPerfil    String?
 }
 
 model Suscripcion {
