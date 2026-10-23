@@ -1,3 +1,4 @@
+// src/interface/controllers/auth.controller.ts
 import { Request, Response } from 'express';
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcrypt';
@@ -56,10 +57,11 @@ export const login = async (req: Request, res: Response) => {
       return res.status(401).json({ error: 'Credenciales inválidas' });
     }
 
+    // CORRECCIÓN: Se agrega 'as string' para satisfacer los tipos estrictos de jsonwebtoken
     const token = jwt.sign(
       { id: user.id, role: user.role },
       process.env.JWT_SECRET!,
-      { expiresIn: process.env.JWT_EXPIRES_IN || '7d' }
+      { expiresIn: (process.env.JWT_EXPIRES_IN || '7d') as string }
     );
 
     res.json({
