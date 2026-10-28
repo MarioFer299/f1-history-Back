@@ -2,7 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import authRoutes from './interface/routes/authRoutes';
-import teamRoutes from './interface/routes/teamRoutes'; // <-- AGREGAR ESTA LÍNEA
+import teamRoutes from './interface/routes/teamRoutes';
+import interactionRoutes from './interface/routes/interactionRoutes'; // <-- AGREGAR
 
 dotenv.config();
 
@@ -16,7 +17,8 @@ app.use(cors({
 }));
 
 app.use('/api/auth', authRoutes);
-app.use('/api/teams', teamRoutes); // <-- AGREGAR ESTA LÍNEA
+app.use('/api/teams', teamRoutes);
+app.use('/api/interactions', interactionRoutes); // <-- AGREGAR
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'F1 History Backend is running' });
