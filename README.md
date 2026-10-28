@@ -17,25 +17,27 @@ El proyecto está construido con **Node.js, Express, TypeScript y Prisma ORM**, 
    cd f1-history-Back
 
 2. **Instalar dependencias:**
+    ```bash
      npm install
 
 3. **Configurar variables de entorno:**
    - Crea un archivo .env en la raíz del proyecto (puedes basarte en .env.example) y configura tu conexión a la base de datos:
-
-    PORT=4000
-   NODE_ENV=development
-   DATABASE_URL="postgresql://usuario:contraseña@localhost:5432/f1_history?schema=public"
-   JWT_SECRET="tu_clave_secreta_muy_larga_y_segura"
-   JWT_EXPIRES_IN="7d"
-   CORS_ORIGIN="http://localhost:3000"
+    ```bash
+     PORT=4000
+    NODE_ENV=development
+    DATABASE_URL="postgresql://usuario:contraseña@localhost:5432/f1_history?schema=public"
+    JWT_SECRET="tu_clave_secreta_muy_larga_y_segura"
+    JWT_EXPIRES_IN="7d"
+    CORS_ORIGIN="http://localhost:3000"
 
 4. **Conectar y preparar la Base de Datos:**
     - Sincroniza el esquema de Prisma con tu base de datos y ejecuta el script de seed para cargar datos de prueba:
-
+    ```bash
        npx prisma db push
        npx prisma db seed
 
 5. **Ejecutar el servidor de desarrollo:**
+    ```bash
        npm run dev
 
     La API estará disponible y corriendo en: http://localhost:4000
@@ -62,13 +64,16 @@ El frontend consume la API REST del backend, maneja la sesión de usuario con JW
    cd f1-history-frontend
 
 2. **Instalar dependencias:**
+    ```bash
     npm install
 
 3. Configurar variables de entorno:
   - Crea un archivo .env.local en la raíz del proyecto para conectar con tu backend local:
+    ```bash
      NEXT_PUBLIC_API_HOST=http://localhost:4000
 
 4. **Ejecutar el servidor de desarrollo:**
+    ```bash
        npm run dev
 
     El sitio web estará disponible y corriendo en: http://localhost:3000
