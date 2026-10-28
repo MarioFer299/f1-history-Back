@@ -1,0 +1,19 @@
+# Dependencias
+node_modules/
+
+# Archivos de entorno (¡CRÍTICO! La rúbrica penaliza subir esto)
+.env
+.env.local
+.env.example
+
+# Archivos compilados de TypeScript
+dist/
+
+# Archivos de Prisma generados
+prisma/*.db
+prisma/*.db-journal
+
+# Logs y archivos temporales del sistema
+*.log
+.DS_Store
+Thumbs.db

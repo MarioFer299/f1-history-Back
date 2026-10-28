@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  user
+  admin
+}
+
+model User {
+  id           String         @id @default(uuid())
+  name         String
+  email        String         @unique
+  password     String
+  role         Role           @default(user)
+  createdAt    DateTime       @default(now())
+  interactions Interaction[]
+}
+
+model Team {
+  id            String         @id @default(uuid())
+  name          String         
+  base          String         
+  championships Int
+  logoUrl       String
+  createdAt     DateTime       @default(now())
+  interactions  Interaction[]
+}
+
+model Interaction {
+  id        String   @id @default(uuid())
+  userId    String
+  teamId    String?  
+  message   String?  
+  type      String   
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  team      Team?    @relation(fields: [teamId], references: [id], onDelete: SetNull)
+}
