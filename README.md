@@ -39,8 +39,7 @@ El proyecto está construido con **Node.js, Express, TypeScript y Prisma ORM**, 
 5. **Ejecutar el servidor de desarrollo:**
     ```bash
        npm run dev
-
-    La API estará disponible y corriendo en: http://localhost:4000
+ La API estará disponible y corriendo en: http://localhost:4000
 
 
 ### 📄 2. Contenido para `f1-history-frontend/README.md`
