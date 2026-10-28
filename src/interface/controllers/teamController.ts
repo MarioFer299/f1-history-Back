@@ -21,7 +21,8 @@ export class TeamController {
   async getById(req: Request, res: Response) {
     try {
       const useCase = new GetTeamById();
-      const result = await useCase.execute(req.params.id);
+      // CORRECCIÓN: Forzamos que el ID sea un string
+      const result = await useCase.execute(String(req.params.id));
       if (!result) return res.status(404).json({ error: 'Escudería no encontrada' });
       return res.status(200).json(result);
     } catch (error: any) {
@@ -42,7 +43,8 @@ export class TeamController {
   async update(req: Request, res: Response) {
     try {
       const useCase = new UpdateTeam();
-      const result = await useCase.execute(req.params.id, req.body);
+      // CORRECCIÓN: Forzamos que el ID sea un string
+      const result = await useCase.execute(String(req.params.id), req.body);
       return res.status(200).json(result);
     } catch (error: any) {
       if (error.code === 'P2025') return res.status(404).json({ error: 'Escudería no encontrada' });
@@ -53,7 +55,8 @@ export class TeamController {
   async delete(req: Request, res: Response) {
     try {
       const useCase = new DeleteTeam();
-      await useCase.execute(req.params.id);
+      // CORRECCIÓN: Forzamos que el ID sea un string
+      await useCase.execute(String(req.params.id));
       return res.status(200).json({ message: 'Escudería eliminada' });
     } catch (error: any) {
       if (error.code === 'P2025') return res.status(404).json({ error: 'Escudería no encontrada' });

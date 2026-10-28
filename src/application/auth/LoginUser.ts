@@ -5,12 +5,10 @@ import * as jwt from 'jsonwebtoken';
 
 export class LoginUser {
   async execute(data: LoginRequest): Promise<AuthResponse> {
-    // 1. Buscar usuario
     const user = await prisma.user.findUnique({
       where: { email: data.email },
     });
 
-    // 2. Validar credenciales (Rúbrica: mensaje genérico 401, no revelar si falló email o pass)
     if (!user) {
       throw new Error('UNAUTHORIZED: Credenciales inválidas');
     }
@@ -20,21 +18,16 @@ export class LoginUser {
       throw new Error('UNAUTHORIZED: Credenciales inválidas');
     }
 
-    // 3. Generar JWT (Rúbrica: payload mínimo, sin contraseña, con expiración)
     const payload: JwtPayload = {
       id: user.id,
       role: user.role,
     };
 
-    // CORRECCIÓN: Extraer las variables con valores por defecto para evitar errores de tipo en TypeScript
-    const secret = process.env.JWT_SECRET || 'secret_de_respaldo';
-    const expiresIn = process.env.JWT_EXPIRES_IN || '7d';
-
-    const token = jwt.sign(payload, secret, {
-      expiresIn: expiresIn as string | number,
+    // CORRECCIÓN DEFINITIVA: 'as any' evita el conflicto de tipos estrictos de jsonwebtoken
+    const token = jwt.sign(payload, process.env.JWT_SECRET as string, {
+      expiresIn: (process.env.JWT_EXPIRES_IN as any) || '7d',
     });
 
-    // 4. Retornar respuesta (Rúbrica: nunca devolver la contraseña)
     return {
       token,
       user: {
