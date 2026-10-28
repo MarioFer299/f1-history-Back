@@ -45,7 +45,6 @@ El proyecto está construido con **Node.js, Express, TypeScript y Prisma ORM**, 
 
 ### 📄 2. Contenido para `f1-history-frontend/README.md`
 
-```markdown
 # 🏎️ F1 History - Frontend
 
 Interfaz de usuario del proyecto final de Desarrollo Web. Es la evolución full-stack del sitio original, reconstruido utilizando **Next.js (App Router), TypeScript y Tailwind CSS**.
