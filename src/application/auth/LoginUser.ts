@@ -26,8 +26,12 @@ export class LoginUser {
       role: user.role,
     };
 
-    const token = jwt.sign(payload, process.env.JWT_SECRET as string, {
-      expiresIn: process.env.JWT_EXPIRES_IN || '7d',
+    // CORRECCIÓN: Extraer las variables con valores por defecto para evitar errores de tipo en TypeScript
+    const secret = process.env.JWT_SECRET || 'secret_de_respaldo';
+    const expiresIn = process.env.JWT_EXPIRES_IN || '7d';
+
+    const token = jwt.sign(payload, secret, {
+      expiresIn: expiresIn as string | number,
     });
 
     // 4. Retornar respuesta (Rúbrica: nunca devolver la contraseña)
