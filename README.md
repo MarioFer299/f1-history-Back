@@ -41,4 +41,17 @@ El proyecto está construido con **Node.js, Express, TypeScript y Prisma ORM**, 
        npm run dev
  La API estará disponible y corriendo en: http://localhost:4000
 
+ ### 🔗 Enlaces del Proyecto Desplegado
+
+- **Repositorio del Backend:** https://github.com/MarioFer299/f1-history-Back
+- **Repositorio del Frontend:** https://github.com/MarioFer299/f1-history-frontend
+- **API Desplegada (Render):** https://f1-history-back.onrender.com
+- **Sitio Web Desplegado (Vercel):** https://f1-history-frontend.vercel.app
+
+### 👤 Credenciales de Prueba
+- **Administrador:** `admin@f1history.com` / `Admin123!`
+- **Usuario:** `user@f1history.com` / `User123!`
+
+> *Nota: El backend está en el plan gratuito de Render. La primera petición después de inactividad puede tardar 30-50 segundos mientras el servidor "despierta". Esto es normal.*
+
 
